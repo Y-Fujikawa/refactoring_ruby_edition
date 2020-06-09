@@ -32,7 +32,7 @@ jobs:
     - name: Rubocop checks
       uses: gimenete/rubocop-action@1.0
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.R_R_E_GITHUB_TOKEN }}
     - name: Run tests
       run: |
         cd chapter_1
