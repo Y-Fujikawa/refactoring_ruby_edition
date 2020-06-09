@@ -17,8 +17,6 @@ class Customer
     total_amount, frequent_renter_points = 0, 0
     result = "Rental Record for #{@name}\n"
     @rentals.each do |element|
-      this_amount = amount_for(element)
-
       # レンタルポイントの加算
       frequent_renter_points += 1
       # 新作2日間レンタルでボーナス点を加算
@@ -26,28 +24,16 @@ class Customer
         frequent_renter_points += 1
       end
       # このレンタルの料金を表示
-      result += "\t" + element.movie.title + "\t" + this_amount.to_s + "\n"
-      total_amount += this_amount
+      # chargeメソッドを1度ではなく、2度呼び出している。
+      # それだけの理由でこの変更を避けようという人がいる。
+      # 本当に高いパフォーマンスを得たいのなら、パフォーマンスについてこのような考え方をするべきではない
+      # (2.11説「リファクタリングとパフォーマンス」を参照)
+      result += "\t" + element.movie.title + "\t" + element.charge.to_s + "\n"
+      total_amount += element.charge
     end
     # フッター行を追加
     result += "Amount owed is #{total_amount}\n"
     result += "You earned #{frequent_renter_points} frequent renter points\n"
-    result
-  end
-
-  # 各行の金額を計算
-  def amount_for(rental)
-    result = 0
-    case rental.movie.price_code
-    when Movie::REGULAR
-      result += 2
-      result += (rental.days_rented - 2) * 1.5 if rental.days_rented > 2
-    when Movie::NEW_RELEASE
-      result += rental.days_rented * 3
-    when Movie::CHILDRENS
-      result += 1.5
-      result += (rental.days_rented - 3) * 1.5 if rental.days_rented > 3
-    end
     result
   end
 end
