@@ -31,6 +31,8 @@ jobs:
       run: bundle install
     - name: Rubocop checks
       uses: gimenete/rubocop-action@1.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Run tests
       run: |
         cd chapter_1
