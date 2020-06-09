@@ -8,9 +8,9 @@ require './customer'
 # テストコード
 class Test1 < Test::Unit::TestCase
   def setup
-    pokemon = Movie.new('Pokemon', Movie::NEW_RELEASE)
-    zelda = Movie.new('Zelda', Movie::REGULAR)
-    kirby = Movie.new('Kirby', Movie::CHILDRENS)
+    pokemon = Movie.new('Pokemon', NewReleasePrice.new)
+    zelda = Movie.new('Zelda', RegularPrice.new)
+    kirby = Movie.new('Kirby', ChildrensPrice.new)
 
     first_rental = Rental.new(pokemon, 3)
     second_rental = Rental.new(zelda, 5)
@@ -23,18 +23,18 @@ class Test1 < Test::Unit::TestCase
 
     @result = <<~RESULT
       Rental Record for boy
-      #{"\t"}Pokemon#{"\t"}9
-      #{"\t"}Zelda#{"\t"}6.5
-      #{"\t"}Kirby#{"\t"}1.5
+      \tPokemon\t9
+      \tZelda\t6.5
+      \tKirby\t1.5
       Amount owed is 17.0
       You earned 4 frequent renter points
     RESULT
 
     @html_result = <<~RESULT
       <h1>Rentals for <em>boy</em></h1><p>
-      #{"\t"}Pokemon: 9<br>
-      #{"\t"}Zelda: 6.5<br>
-      #{"\t"}Kirby: 1.5<br>
+      \tPokemon: 9<br>
+      \tZelda: 6.5<br>
+      \tKirby: 1.5<br>
       <p>You owe <em>17.0</em></p>
       On this rental you earned <em>4</em> frequent renter points<p>
     RESULT
