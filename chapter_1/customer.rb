@@ -18,11 +18,8 @@ class Customer
     result = "Rental Record for #{@name}\n"
     @rentals.each do |element|
       # レンタルポイントの加算
-      frequent_renter_points += 1
-      # 新作2日間レンタルでボーナス点を加算
-      if element.movie.price_code == Movie::NEW_RELEASE && element.days_rented > 1
-        frequent_renter_points += 1
-      end
+      frequent_renter_points += element.frequent_renter_points
+
       # このレンタルの料金を表示
       # chargeメソッドを1度ではなく、2度呼び出している。
       # それだけの理由でこの変更を避けようという人がいる。
