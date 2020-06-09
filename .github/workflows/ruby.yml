@@ -29,6 +29,8 @@ jobs:
         ruby-version: 2.7
     - name: Install dependencies
       run: bundle install
+    - name: Rubocop checks
+      uses: gimenete/rubocop-action@1.0
     - name: Run tests
       run: |
         cd chapter_1
