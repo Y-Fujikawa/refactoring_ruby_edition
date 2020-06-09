@@ -29,9 +29,22 @@ class Test1 < Test::Unit::TestCase
       Amount owed is 17.0
       You earned 4 frequent renter points
     RESULT
+
+    @html_result = <<~RESULT
+      <h1>Rentals for <em>boy</em></h1><p>
+      #{"\t"}Pokemon: 9<br>
+      #{"\t"}Zelda: 6.5<br>
+      #{"\t"}Kirby: 1.5<br>
+      <p>You owe <em>17.0</em></p>
+      On this rental you earned <em>4</em> frequent renter points<p>
+    RESULT
   end
 
   def test_statement
     assert_equal(@result, @boy.statement)
+  end
+
+  def test_html_statement
+    assert_equal(@html_result, @boy.html_statement)
   end
 end
